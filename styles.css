@@ -6,7 +6,8 @@
 
 body{
     background:black;
-    overflow:hidden;
+    overflow-x:hidden;
+    overflow-y:auto;
     font-family:'Cormorant Garamond', serif;
 }
 
@@ -16,6 +17,7 @@ body{
     width:100vw;
     height:100vh;
     overflow:hidden;
+    overflow-y:auto;
     background:radial-gradient(circle at center,#111 0%,#000 70%);
 }
 
@@ -45,7 +47,9 @@ body{
 /* ================= ESCENA 4 ================= */
 
 .scene4{
-    background:black;
+    background:transparent;
+
+    z-index:2;
 
     opacity:0;
     pointer-events:none;
@@ -326,6 +330,13 @@ body{
 
 .flash.active{
     opacity:1;
+}
+
+.envelope-container,
+.letter,
+.focus-star{
+    position:relative;
+    z-index:5;
 }
 
 /* ================= ESTRELLA CENTRAL ================= */
