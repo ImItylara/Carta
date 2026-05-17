@@ -1,0 +1,599 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:black;
+    overflow-x:hidden;
+    overflow-y:auto;
+    font-family:'Cormorant Garamond', serif;
+}
+
+.stage{
+    perspective:1000px;
+    position:relative;
+    width:100vw;
+    min-height:100vh;
+    overflow-x:hidden;
+    overflow-y:auto;
+    background:radial-gradient(circle at center,#111 0%,#000 70%);
+}
+
+/* ================= ESCENAS ================= */
+
+.scene{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    transition:transform 1.5s ease;
+}
+
+.scene1{
+    flex-direction:column;
+    text-align:center;
+}
+
+.scene2,
+.scene3{
+    transform:translateX(100%);
+}
+
+/* ================= ESCENA 4 ================= */
+
+.scene4{
+    background:transparent;
+
+    z-index:2;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:opacity 2s ease;
+}
+
+.stage.next3 .scene3{
+    display:none;
+}
+
+.stage.next3 .scene4{
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* ================= TRANSICIONES ================= */
+
+.stage.next .scene1{
+    transform:translateX(-100%);
+}
+
+.stage.next .scene2{
+    transform:translateX(0);
+}
+
+.stage.next2 .scene2{
+    transform:translateX(-100%);
+}
+
+.stage.next2 .scene3{
+    transform:translateX(0);
+}
+
+/* ================= TITULO ================= */
+
+.title{
+    color:#f5e6c8;
+    font-size:3rem;
+
+    opacity:0;
+
+    transform:translateZ(-800px) scale(.3);
+
+    transition:all 2.5s cubic-bezier(.2,.8,.2,1);
+
+    text-align:center;
+
+    filter:blur(10px);
+}
+
+.show-title{
+    opacity:1;
+    transform:translateZ(0) scale(1);
+    filter:blur(0);
+}
+
+.start{
+    margin-top:40px;
+    font-size:2rem;
+    color:#fff3d6;
+
+    opacity:0;
+
+    cursor:pointer;
+
+    animation:pulse 2s infinite ease-in-out;
+}
+
+.show-start{
+    opacity:1;
+    transition:opacity 1s ease;
+}
+
+/* ================= CORTINAS ================= */
+
+.curtain{
+    position:absolute;
+    top:0;
+
+    width:50%;
+    height:100%;
+
+    z-index:10;
+
+    background:url("assets/velvet.jpg");
+    background-size:100px 100%;
+    background-repeat:repeat-x;
+
+    transition:transform 2.5s cubic-bezier(.7,0,.3,1);
+}
+
+.left{ left:0; }
+.right{ right:0; }
+
+.stage.open .left{
+    transform:translateX(-100%);
+}
+
+.stage.open .right{
+    transform:translateX(100%);
+}
+
+/* ================= ESTRELLAS ================= */
+
+.stars{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+}
+
+.shooting-star{
+    position:absolute;
+
+    width:3px;
+    height:3px;
+
+    background:white;
+    border-radius:50%;
+
+    box-shadow:
+        0 0 10px white,
+        0 0 20px white;
+
+    animation:shoot linear forwards;
+}
+
+.shooting-star::after{
+    content:"";
+
+    position:absolute;
+    top:50%;
+    left:-60px;
+
+    width:60px;
+    height:2px;
+
+    background:linear-gradient(to left,white,transparent);
+
+    transform:translateY(-50%);
+}
+
+@keyframes shoot{
+
+    from{
+        transform:translateX(-100px);
+        opacity:1;
+    }
+
+    to{
+        transform:translateX(110vw);
+        opacity:0;
+    }
+}
+
+/* ================= CONTENEDORES ================= */
+
+.genesis-container,
+.hechizo-container{
+    width:90%;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:60px;
+}
+
+.genesis-left,
+.hechizo-left{
+    width:50%;
+    color:#e8ffe8;
+}
+
+.genesis-right,
+.hechizo-right{
+    width:45%;
+    display:flex;
+    justify-content:center;
+}
+
+.genesis-right img,
+.hechizo-right img{
+    max-width:100%;
+    border-radius:20px;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.6);
+}
+
+.genesis-title,
+.hechizo-title{
+    font-size:3rem;
+    margin-bottom:30px;
+    color:#d8ffd8;
+}
+
+.genesis-text,
+.hechizo-text{
+    font-size:1.2rem;
+    line-height:1.8;
+    max-width:500px;
+}
+
+/* ================= BOTONES ================= */
+
+.continue,
+.continue2{
+    margin-top:50px;
+
+    font-size:1.8rem;
+    color:#d8ffd8;
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    transition:all 1s ease;
+
+    cursor:pointer;
+}
+
+.show-continue,
+.show-continue2{
+    opacity:1;
+    transform:translateY(0);
+
+    animation:pulseSoft 2s infinite ease-in-out;
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.08);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+@keyframes pulseSoft{
+
+    0%{
+        opacity:.7;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:.7;
+    }
+}
+
+/* ================= FLASH ================= */
+
+.flash{
+    position:absolute;
+    inset:0;
+
+    background:white;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:opacity 1.6s ease-in-out;
+
+    z-index:100;
+}
+
+.flash.active{
+    opacity:1;
+}
+
+.envelope-container,
+.letter,
+.focus-star{
+    position:relative;
+    z-index:5;
+}
+
+/* ================= ESTRELLA CENTRAL ================= */
+
+.focus-star{
+    position:absolute;
+
+    width:10px;
+    height:10px;
+
+    background:white;
+    border-radius:50%;
+
+    box-shadow:
+        0 0 20px white,
+        0 0 50px #8edfff,
+        0 0 100px #8edfff;
+
+    opacity:0;
+
+    animation:
+        focusStarAppear 3s forwards,
+        focusPulse 2s infinite ease-in-out;
+}
+
+/* ================= SOBRE ================= */
+
+.envelope-container{
+    position:absolute;
+
+    opacity:0;
+
+    transform:scale(.5);
+
+    animation:envelopeAppear 2s forwards 3s;
+}
+
+/* SOBRE */
+
+.envelope{
+    position:relative;
+
+    width:430px;
+    height:280px;
+
+    background:#e7d7b8;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 40px rgba(255,230,180,.25),
+        0 25px 70px rgba(0,0,0,.6);
+
+    overflow:visible;
+
+    transition:
+        transform .4s ease,
+        opacity .8s ease;
+}
+
+.envelope:hover{
+    transform:scale(1.03);
+}
+
+/* TAPA */
+
+.envelope-flap{
+    position:absolute;
+
+    inset:0;
+
+    background:#d9c4a0;
+
+    clip-path:polygon(0 0,100% 0,50% 52%);
+
+    transform-origin:top;
+
+    transition:transform 1s ease;
+
+    z-index:5;
+}
+
+/* CARTA */
+.letter{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        translateY(120px);
+
+        width:820px;
+        height:80vh;
+
+    background:#fffdf8;
+
+    border-radius:10px;
+
+    padding:40px;
+
+    opacity:0;
+
+    transition:
+        transform 1.6s ease,
+        opacity 1.2s ease;
+
+    z-index:2;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.35);
+
+    overflow-y:auto;
+    max-height:85vh;
+}
+/* TEXTO */
+
+.letter-content{
+    color:#2d2d2d;
+
+    font-size:1.35rem;
+
+    line-height:1.9;
+
+    text-align:center;
+
+    white-space: pre-line;
+}
+
+/* ================= ABIERTO ================= */
+
+.envelope.open .envelope-flap{
+    transform:rotateX(180deg);
+}
+
+/* EL SOBRE DESAPARECE */
+
+.envelope.open{
+    opacity:0;
+}
+
+/* SOLO QUEDA LA CARTA */
+
+/* CARTA APARECE */
+
+.letter.show{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,-50%)
+        translateY(-30px)
+        scale(1.02);
+}
+
+/* ================= ANIMACIONES ================= */
+
+@keyframes focusStarAppear{
+
+    from{
+        opacity:0;
+        transform:scale(0);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+@keyframes focusPulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.4);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+@keyframes envelopeAppear{
+
+    from{
+        opacity:0;
+        transform:scale(.3);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .genesis-container,
+    .hechizo-container{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .genesis-left,
+    .genesis-right,
+    .hechizo-left,
+    .hechizo-right{
+        width:100%;
+    }
+
+    .envelope{
+        width:280px;
+        height:200px;
+    }
+
+    .letter-content{
+        font-size:1rem;
+    }
+}
+
+.letter{
+    width:96%;
+    height:82vh;
+
+    padding:25px;
+}
+
+@media(max-width:900px){
+    .scene{
+        position:relative;
+        min-height:100vh;
+    }
+}
+
+@media(max-width:900px){
+
+    .genesis-container,
+    .hechizo-container{
+        height:auto;
+        padding:30px 20px;
+        gap:20px;
+    }
+
+    .stage{
+        overflow-y:auto;
+    }
+}
+
+body, html{
+    height:auto;
+    overflow-x:hidden;
+}
