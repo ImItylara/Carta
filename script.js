@@ -233,16 +233,16 @@ continueBtn2.addEventListener("click", (e) => {
     }, 3000);
 });
 
-/* ================= ABRIR SOBRE ================= */
-
-envelope.addEventListener("click", () => {
+/* ================= ABRIR SOBRE CORREGIDO ================= */
+// Agregamos el parámetro (e) aquí adentro
+envelope.addEventListener("click", (e) => {
+    
+    // ESTA LÍNEA ES LA CLAVE: Evita que el click se duplique o se pierda en el celular
+    e.stopPropagation(); 
 
     envelope.classList.add("open");
 
     setTimeout(() => {
-
         letter.classList.add("show");
-
     }, 700);
-
 });
