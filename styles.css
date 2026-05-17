@@ -66,7 +66,11 @@ body{
     opacity:1;
     pointer-events:auto;
 }
-
+.stage.next3 .envelope-container,
+.stage.next3 .envelope {
+    pointer-events: auto !important;
+    z-index: 999;
+}
 /* ================= TRANSICIONES ================= */
 
 .stage.next .scene1{
